@@ -1,59 +1,63 @@
 # BlogPost
 
-A blog platform built during my internship at Titanom. Signed-in users can write blog posts, filter them by theme, and comment on posts. They can edit and delete their own posts and comments.
+A blog platform built during my internship at Titanom. Users can create an account, write blog posts, filter them by theme, and comment on posts. They can edit and delete their own posts and comments.
+
+The app runs completely on its own: no external services, no API keys, no database server.
 
 ## Tech stack
 
-- [Next.js 14](https://nextjs.org/) (App Router) with TypeScript
+- [Next.js 14](https://nextjs.org/) (App Router, Server Actions) with TypeScript
 - [Tailwind CSS](https://tailwindcss.com/)
-- [Clerk](https://clerk.com/) for authentication
-- [Drizzle ORM](https://orm.drizzle.team/) with PostgreSQL (e.g. Supabase)
-- [react-hook-form](https://react-hook-form.com/) and [zod](https://zod.dev/) for forms and validation
-- [@t3-oss/env-nextjs](https://env.t3.gg/) for type-safe environment variables
+- SQLite via Node's built-in [`node:sqlite`](https://nodejs.org/api/sqlite.html) module
+- Self-written authentication: passwords hashed with scrypt, sessions in an HTTP-only cookie
+
+## Requirements
+
+- Node.js **22.13 or newer** (for `node:sqlite`)
+- [pnpm](https://pnpm.io/)
 
 ## Getting started
 
-1. Install the dependencies:
+```bash
+pnpm install
+pnpm dev
+```
 
-   ```bash
-   pnpm install
-   ```
+Open [http://localhost:3000](http://localhost:3000) and create an account under **Sign up**.
 
-2. Copy `.env.example` to `.env` and fill in your database URL and Clerk keys.
-
-3. Run the database migrations:
-
-   ```bash
-   pnpm db:migrate
-   ```
-
-4. Start the development server:
-
-   ```bash
-   pnpm dev
-   ```
-
-   Open [http://localhost:3000](http://localhost:3000) in your browser.
+The database is created automatically on first start at `data/blog.db`. To use a different location, set the `DATABASE_PATH` environment variable. To reset all data, delete the `data` folder.
 
 ## Scripts
 
-| Script             | Description                                       |
-| ------------------ | ------------------------------------------------- |
-| `pnpm dev`         | Start the development server                      |
-| `pnpm build`       | Build for production                              |
-| `pnpm start`       | Start the production server                       |
-| `pnpm lint`        | Run ESLint                                        |
-| `pnpm db:generate` | Generate SQL migrations from `src/db/schema.ts`   |
-| `pnpm db:migrate`  | Apply the migrations to the database              |
+| Script       | Description                  |
+| ------------ | ---------------------------- |
+| `pnpm dev`   | Start the development server |
+| `pnpm build` | Build for production         |
+| `pnpm start` | Start the production server  |
+| `pnpm lint`  | Run ESLint                   |
 
 ## Project structure
 
 ```
 src/
-├── app/            # Pages and components (App Router)
+├── app/
+│   ├── actions/    # Server Actions (auth, blogs, comments)
 │   ├── blog/       # Blog overview, detail page, create/edit, comments
-│   └── personal/   # The user's own posts
-├── db/             # Drizzle schema, queries, and migrations
-├── env.ts          # Environment variable validation
-└── middleware.ts   # Clerk route protection
+│   ├── login/      # Sign-in page
+│   ├── register/   # Sign-up page
+│   └── personal/   # Account page with the user's own posts
+├── db/
+│   ├── index.ts    # SQLite connection and schema
+│   └── queries.ts  # Read queries
+├── lib/
+│   ├── auth.ts     # Password hashing and sessions
+│   └── themes.tsx  # Blog themes and their icons
+└── middleware.ts   # Redirects visitors without a session to /login
 ```
+
+## How authentication works
+
+- On sign-up the password is hashed with `scrypt` and a random salt. The plain password is never stored.
+- On sign-in a random session token is stored in an HTTP-only cookie. The database only keeps a SHA-256 hash of that token.
+- Sessions expire after 30 days. Signing out deletes the session.
+- Every action that changes data checks on the server that the user is signed in and owns the post or comment.

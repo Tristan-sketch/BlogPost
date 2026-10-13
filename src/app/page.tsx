@@ -1,17 +1,15 @@
-import { Wifi } from "lucide-react"
-import { SignedIn, SignedOut, SignIn, SignInButton, UserButton } from '@clerk/nextjs'
-import { auth } from "@clerk/nextjs/server"
-import Counter from "./count"
-import Image from "next/image"
+import Image from "next/image";
+import Link from "next/link";
+import { getCurrentUser } from "@/lib/auth";
 
-export default async function Home() {
-  const { userId } = auth()
+export default function Home() {
+  const user = getCurrentUser();
 
-  if(userId === null) {
+  if (!user) {
     return (
       <div>
         <h1 className="text-5xl p-2 m-2 text-center font-bold text-violet-600">
-          Create an Account 
+          Create an Account
         </h1>
         <div className="flex justify-center items-center p-6 bg-white">
           <div className="bg-white rounded-full p-4 shadow-2xl">
@@ -19,14 +17,23 @@ export default async function Home() {
               className="rounded-full border-4 border-white"
               src="/Homepage1.jpg"
               alt="Mein Bild"
-              width={250} // Beispielbreite
-              height={250} // Beispielhöhe
+              width={250}
+              height={250}
             />
           </div>
         </div>
+        <div className="flex justify-center gap-4">
+          <Link className="border text-white bg-violet-600 hover:bg-white hover:text-violet-600 hover:border-violet-600 rounded-md py-2 px-4" href="/register">
+            Sign up
+          </Link>
+          <Link className="border border-violet-600 text-violet-600 hover:bg-violet-600 hover:text-white rounded-md py-2 px-4" href="/login">
+            Sign in
+          </Link>
+        </div>
       </div>
-    )
-  } else {
+    );
+  }
+
   return (
     <main className="flex flex-col items-center p-4 w-full">
       <section className="w-full max-w-4xl my-6 text-center">
@@ -44,14 +51,11 @@ export default async function Home() {
             <p className="text-gray-600">Tell what you want in your own blog</p>
           </div>
           <div className="bg-white shadow-md rounded-md p-4 text-center">
-            <h3 className="text-xl text-violet-600 font-bold">Explore </h3>
-            <p className="text-gray-600">Find out by exploring other blogs </p>
+            <h3 className="text-xl text-violet-600 font-bold">Explore</h3>
+            <p className="text-gray-600">Find out by exploring other blogs</p>
           </div>
-          {/* Weitere Funktionen */}
         </div>
       </section>
     </main>
   );
-  } 
-
 }

@@ -1,24 +1,12 @@
-"use client"
+import { Trash2 } from "lucide-react";
+import { deleteBlog } from "../actions/blog";
 
-import { Trash2 } from "lucide-react"
-import { dbDeleteblog } from '@/db/actions';
-import { useRouter } from "next/navigation";
-
-
-
-
-export default function Deleteblog({blogId}:{blogId:number}) {
-
-  const router = useRouter();
-
-  const handleDeleteBlog = async ()=>{
-    await dbDeleteblog(blogId);
-    router.refresh()
-  }
-  
+export default function DeleteBlog({ blogId }: { blogId: number }) {
   return (
-    <button onClick={handleDeleteBlog} className="float-right">
-      <Trash2/>
-    </button>
-  )
+    <form action={deleteBlog.bind(null, blogId)} className="float-right">
+      <button title="Delete blog">
+        <Trash2 />
+      </button>
+    </form>
+  );
 }
