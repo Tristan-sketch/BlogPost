@@ -1,0 +1,27 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1719302875111,
+      "tag": "0000_fixed_dexter_bennett",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1719303540671,
+      "tag": "0001_watery_doctor_doom",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1719304694150,
+      "tag": "0002_premium_firebird",
+      "breakpoints": true
+    }
+  ]
+}
