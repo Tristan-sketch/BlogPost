@@ -1,8 +1,26 @@
 # BlogPost
 
+[![CI](https://github.com/Tristan-sketch/BlogPost/actions/workflows/ci.yml/badge.svg)](https://github.com/Tristan-sketch/BlogPost/actions/workflows/ci.yml)
+![Next.js](https://img.shields.io/badge/Next.js-14-000000?logo=nextdotjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-node%3Asqlite-003B57?logo=sqlite&logoColor=white)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 A blog platform built during my internship at Titanom. Users can create an account, write blog posts, filter them by theme, and comment on posts. They can edit and delete their own posts and comments.
 
 The app runs completely on its own: no external services, no API keys, no database server.
+
+| Blog overview | Post with comments |
+|---|---|
+| ![Blog overview](docs/blog-overview.png) | ![Post with comments](docs/blog-post.png) |
+
+## Features
+
+- Sign up, sign in and sign out with self-written, session-based authentication
+- Create, edit and delete posts; every post has a theme with its own icon
+- Comment on posts; edit and delete your own comments
+- Personal page with your own posts
+- Authorisation checked on the server for every change, not just hidden in the UI
 
 ## Tech stack
 
@@ -61,3 +79,7 @@ src/
 - On sign-in a random session token is stored in an HTTP-only cookie. The database only keeps a SHA-256 hash of that token.
 - Sessions expire after 30 days. Signing out deletes the session.
 - Every action that changes data checks on the server that the user is signed in and owns the post or comment.
+
+## License
+
+Released under the [MIT License](LICENSE).
