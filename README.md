@@ -1,3 +1,5 @@
+![BlogPost](docs/banner.png)
+
 # BlogPost
 
 [![CI](https://github.com/Tristan-sketch/BlogPost/actions/workflows/ci.yml/badge.svg)](https://github.com/Tristan-sketch/BlogPost/actions/workflows/ci.yml)
@@ -6,7 +8,7 @@
 ![SQLite](https://img.shields.io/badge/SQLite-node%3Asqlite-003B57?logo=sqlite&logoColor=white)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-A blog platform built during my internship at Titanom. Users can create an account, write blog posts, filter them by theme, and comment on posts. They can edit and delete their own posts and comments.
+A blog platform built during my internship at Titanom Technologies. Users can create an account, write blog posts, filter them by theme, and comment on posts. They can edit and delete their own posts and comments.
 
 The app runs completely on its own: no external services, no API keys, no database server.
 
