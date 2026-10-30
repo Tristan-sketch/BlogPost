@@ -8,9 +8,11 @@
 ![SQLite](https://img.shields.io/badge/SQLite-node%3Asqlite-003B57?logo=sqlite&logoColor=white)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-A blog platform built during my internship at Titanom Technologies. Users can create an account, write blog posts, filter them by theme, and comment on posts. They can edit and delete their own posts and comments.
+A full-stack blog platform. Users can create an account, write blog posts, filter them by theme, and comment on posts. They can edit and delete their own posts and comments.
 
 The app runs completely on its own: no external services, no API keys, no database server.
+
+> **Archived.** An early full-stack project, kept for reference. Active work on this account is quantitative research.
 
 | Blog overview | Post with comments |
 |---|---|
